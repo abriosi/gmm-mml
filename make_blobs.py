@@ -21,7 +21,7 @@ plt.show()
 unsupervised=MDL_GMM.MDL_GMM(threshold=1e-4,
                              live_2d_plot=False,
                              plots=True,
-                             max_iters=1000, 
+                             max_iters=1000,
                              regularize=0)
 unsupervised.fit(X)
 samples=unsupervised.sample(1000)

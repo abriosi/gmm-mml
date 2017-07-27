@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import seaborn
 import MDL_GMM
 
-X,y=make_circles(n_samples=500, shuffle=True, noise=0.05, random_state=1338, factor=0.6)
+X,y=make_circles(n_samples=100, shuffle=True, noise=0.05, random_state=1338, factor=0.6)
 
 plt.title('Circle Data')
 plt.scatter(X[:,0],X[:,1],alpha=0.2,s=10)

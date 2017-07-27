@@ -54,10 +54,12 @@ class MDL_GMM(TransformerMixin):
         plt.show()
     
     def _posterior_probability(self,y,estmu,estcov,i):
-        return multivariate_normal.pdf(y, estmu[i], estcov[:,:,i], allow_singular=False)
-        
-        
-
+        try:
+            return multivariate_normal.pdf(y, estmu[i], estcov[:,:,i], allow_singular=False)
+        except Exception as inst:
+            raise Exception('Possible singular matrix detected. Try adding (more) regularization')
+            
+    
     def fit(self, X, y=None, verb=False):
         y=np.array(X)
         
@@ -179,7 +181,7 @@ class MDL_GMM(TransformerMixin):
                         if min_eig < 0:
                             estcov[:,:,comp] -= 10*min_eig * np.eye(*estcov[:,:,comp].shape)
                         
-                        semi_indic[comp,:]=multivariate_normal.pdf(y, estmu[comp], estcov[:,:,comp], allow_singular=False)
+                        semi_indic[comp,:]=self._posterior_probability(y,estmu,estcov,comp)
                         comp+=1
                     
                 countf = countf + 1
@@ -193,7 +195,7 @@ class MDL_GMM(TransformerMixin):
                     if min_eig < 0:
                         estcov[:,:,i] -= 10*min_eig * np.eye(*estcov[:,:,i].shape)
                     
-                    semi_indic[i,:]=multivariate_normal.pdf(y, estmu[i], estcov[:,:,i], allow_singular=False)
+                    semi_indic[i,:]=self._posterior_probability(y,estmu,estcov,i)
                     indic[i,:]=semi_indic[i,:]*estpp[:,i]
                 
                 if k != 1:
@@ -252,7 +254,7 @@ class MDL_GMM(TransformerMixin):
                     if min_eig < 0:
                         estcov[:,:,i] -= 10*min_eig * np.eye(*estcov[:,:,i].shape)
                     
-                    semi_indic[i,:]=multivariate_normal.pdf(y, estmu[i], estcov[:,:,i], allow_singular=False)
+                    semi_indic[i,:]=self._posterior_probability(y,estmu,estcov,i)
                     indic[i,:]=semi_indic[i,:]*estpp[:,i]
                 
                 if k != 1:
@@ -291,7 +293,7 @@ class MDL_GMM(TransformerMixin):
         y=np.array(X)
         semi_indic = np.empty((self.bestmu.shape[0],y.shape[0]))
         for i in range(self.bestmu.shape[0]):
-                    semi_indic[i,:]=multivariate_normal.pdf(y, self.bestmu[i], self.bestcov[:,:,i], allow_singular=False)
+                    semi_indic[i,:]=self._posterior_probability(y,self.bestmu,self.bestcov,i)
         return semi_indic.T
     
     def fit_transform(self, X, y=None):
