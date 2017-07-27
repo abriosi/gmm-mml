@@ -6,23 +6,17 @@ Created on Mon Jul 24 21:43:48 2017
 @author: abriosi
 """
 
-# Import datasets, classifiers and performance metrics
 from sklearn.datasets import make_blobs
 import matplotlib.pyplot as plt
-import seaborn
-import MDL_GMM
+from mdl_gmm import MdlGmm
 
-X,y=make_blobs(n_samples=100, n_features=2, centers=5, random_state=1338)
+X,y=make_blobs(n_samples=1000, n_features=2, centers=5, random_state=1338)
 
 plt.title('Blob Data')
 plt.scatter(X[:,0],X[:,1],alpha=0.2,s=10)
 plt.show()
 
-unsupervised=MDL_GMM.MDL_GMM(threshold=1e-4,
-                             live_2d_plot=False,
-                             plots=True,
-                             max_iters=1000,
-                             regularize=0)
+unsupervised=MdlGmm(plots=True)
 unsupervised.fit(X)
 samples=unsupervised.sample(1000)
 

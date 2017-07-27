@@ -12,14 +12,14 @@ from scipy.stats import multivariate_normal
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 
-class MDL_GMM(TransformerMixin):
+class MdlGmm(TransformerMixin):
     
     def __init__(self,kmin=1,
                  kmax=25,
-                 regularize=0,
-                 threshold=1e-4,
+                 regularize=1e-6,
+                 threshold=1e-5,
                  covoption=0,
-                 max_iters=1000,
+                 max_iters=100,
                  live_2d_plot=False,
                  plots=False):
         
