@@ -68,8 +68,6 @@ class MDL_GMM(TransformerMixin):
         for i in range(k):
             estcov[:,:,i]=np.diag((np.diag(np.ones((dimens,dimens))*np.max(np.diag(globcov/10)))))
         
-        fig_iter=0
-        
         if self.check_plot== True:
             ax = plt.subplot(111)
             plt.title('Random Gaussian Initialization')
@@ -88,9 +86,7 @@ class MDL_GMM(TransformerMixin):
                 ax.add_artist(ell)
             for i in range(k):
                 draw_elipse(ax,estcov[:,:,i],estmu[i])
-            plt.savefig('./plot/'+'figure_'+str(fig_iter)+'.png')
             plt.show()
-            fig_iter+=1
         
         semi_indic=np.empty((k,y.shape[0]))
         for i in range(k):
@@ -229,8 +225,6 @@ class MDL_GMM(TransformerMixin):
                         ax.add_artist(ell)
                     for i in range(k):
                         draw_elipse(ax,estcov[:,:,i],estmu[i])
-                    fig_iter+=1
-                    plt.savefig('./plot/'+'figure_'+str(fig_iter)+'.png')
                     plt.show()
                     
                 iteration+=1

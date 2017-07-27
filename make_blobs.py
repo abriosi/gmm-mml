@@ -20,8 +20,8 @@ plt.show()
 unsupervised=MDL_GMM.MDL_GMM(threshold=1e-4,
                              live_2d_plot=False,
                              check_plot=True,
-                             max_iters=100, 
-                             regularize=0)
+                             max_iters=1000, 
+                             regularize=1e-5)
 unsupervised.fit(X)
 samples=unsupervised.sample(1000)
 
