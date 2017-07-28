@@ -7,23 +7,21 @@ Created on Wed Jun  7 18:44:27 2017
 """
 
 from sklearn.base import TransformerMixin
-
 import numpy as np
 from scipy.stats import multivariate_normal
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-import seaborn
 
-class MDL_GMM(TransformerMixin):
+class MmlGmm(TransformerMixin):
     
     def __init__(self,kmin=1,
                  kmax=25,
-                 regularize=0,
-                 threshold=1e-4,
+                 regularize=1e-6,
+                 threshold=1e-5,
                  covoption=0,
-                 max_iters=1000,
+                 max_iters=100,
                  live_2d_plot=False,
-                 check_plot=False):
+                 plots=False):
         
         self.kmin=kmin
         self.kmax=kmax
@@ -32,8 +30,36 @@ class MDL_GMM(TransformerMixin):
         self.covoption=covoption
         self.live_2d_plot=live_2d_plot
         self.max_iters=max_iters
-        self.check_plot=check_plot
-
+        self.check_plot=plots
+        
+    def _draw_elipse(self,ax,estcov,estmu):
+        v, w = np.linalg.eigh(estcov)
+        u = w[0] / np.linalg.norm(w[0])
+        angle = np.arctan2(u[1], u[0])
+        angle = 180 * angle / np.pi  # convert to degrees
+        v = 2. * np.sqrt(2.) * np.sqrt(v)
+        
+        ell = mpl.patches.Ellipse(estmu, v[0], v[1],
+                                  180 + angle,facecolor='none')
+        ell.set_clip_box(ax.bbox)
+        ell.set_alpha(1)
+        ax.add_artist(ell)
+        
+    def _plot_graph(self,estcov,estmu,k,y,message):
+        ax = plt.subplot(111)
+        plt.title(message)
+        plt.scatter(y[:,0],y[:,1],alpha=0.2,s=10)
+        for i in range(k):
+            self._draw_elipse(ax,estcov[:,:,i],estmu[i])
+        plt.show()
+    
+    def _posterior_probability(self,y,estmu,estcov,i):
+        try:
+            return multivariate_normal.pdf(y, estmu[i], estcov[:,:,i], allow_singular=False)
+        except Exception as inst:
+            raise Exception('Possible singular matrix detected. Try adding (more) regularization')
+            
+    
     def fit(self, X, y=None, verb=False):
         y=np.array(X)
         
@@ -68,29 +94,8 @@ class MDL_GMM(TransformerMixin):
         for i in range(k):
             estcov[:,:,i]=np.diag((np.diag(np.ones((dimens,dimens))*np.max(np.diag(globcov/10)))))
         
-        fig_iter=0
-        
         if self.check_plot== True:
-            ax = plt.subplot(111)
-            plt.title('Random Gaussian Initialization')
-            plt.scatter(y[:,0],y[:,1],alpha=0.2,s=10)
-            def draw_elipse(ax,estcov,estmu):
-                v, w = np.linalg.eigh(estcov)
-                u = w[0] / np.linalg.norm(w[0])
-                angle = np.arctan2(u[1], u[0])
-                angle = 180 * angle / np.pi  # convert to degrees
-                v = 2. * np.sqrt(2.) * np.sqrt(v)
-                
-                ell = mpl.patches.Ellipse(estmu, v[0], v[1],
-                                          180 + angle,facecolor='none')
-                ell.set_clip_box(ax.bbox)
-                ell.set_alpha(1)
-                ax.add_artist(ell)
-            for i in range(k):
-                draw_elipse(ax,estcov[:,:,i],estmu[i])
-            plt.savefig('./plot/'+'figure_'+str(fig_iter)+'.png')
-            plt.show()
-            fig_iter+=1
+            self._plot_graph(estcov,estmu,k,y,'Random Guassian Initialization')
         
         semi_indic=np.empty((k,y.shape[0]))
         for i in range(k):
@@ -99,13 +104,13 @@ class MDL_GMM(TransformerMixin):
             if min_eig < 0:
                 estcov[:,:,i] -= 10*min_eig * np.eye(*estcov[:,:,i].shape)
                 
-            semi_indic[i,:]=multivariate_normal.pdf(y, estmu[i], estcov[:,:,i], allow_singular=False)
+            semi_indic[i,:]=self._posterior_probability(y,estmu,estcov,i)
             indic[i,:]=semi_indic[i,:]*estpp[:,i]
         
         countf = 0
         loglike=[]
         kappas=[]
-        ##### axis pode ter de ser -1
+
         loglike.append(np.sum(np.log(np.sum(np.finfo(np.float64).tiny+indic,axis=0))))
         dlength = -loglike[countf] + (nparsover2*np.sum(np.log(estpp))) + (nparsover2 + 0.5)*k*np.log(npoints)
         dl.append(dlength)
@@ -176,7 +181,7 @@ class MDL_GMM(TransformerMixin):
                         if min_eig < 0:
                             estcov[:,:,comp] -= 10*min_eig * np.eye(*estcov[:,:,comp].shape)
                         
-                        semi_indic[comp,:]=multivariate_normal.pdf(y, estmu[comp], estcov[:,:,comp], allow_singular=False)
+                        semi_indic[comp,:]=self._posterior_probability(y,estmu,estcov,comp)
                         comp+=1
                     
                 countf = countf + 1
@@ -190,7 +195,7 @@ class MDL_GMM(TransformerMixin):
                     if min_eig < 0:
                         estcov[:,:,i] -= 10*min_eig * np.eye(*estcov[:,:,i].shape)
                     
-                    semi_indic[i,:]=multivariate_normal.pdf(y, estmu[i], estcov[:,:,i], allow_singular=False)
+                    semi_indic[i,:]=self._posterior_probability(y,estmu,estcov,i)
                     indic[i,:]=semi_indic[i,:]*estpp[:,i]
                 
                 if k != 1:
@@ -212,26 +217,7 @@ class MDL_GMM(TransformerMixin):
                     cont=False
                 
                 if self.live_2d_plot==True:
-                    ### FALSE SHIET PLOT
-                    ax = plt.subplot(111)
-                    plt.scatter(y[:,0],y[:,1],alpha=0.2,s=10)
-                    def draw_elipse(ax,estcov,estmu):
-                        v, w = np.linalg.eigh(estcov)
-                        u = w[0] / np.linalg.norm(w[0])
-                        angle = np.arctan2(u[1], u[0])
-                        angle = 180 * angle / np.pi  # convert to degrees
-                        v = 2. * np.sqrt(2.) * np.sqrt(v)
-                        
-                        ell = mpl.patches.Ellipse(estmu, v[0], v[1],
-                                                  180 + angle,facecolor='none')
-                        ell.set_clip_box(ax.bbox)
-                        ell.set_alpha(1)
-                        ax.add_artist(ell)
-                    for i in range(k):
-                        draw_elipse(ax,estcov[:,:,i],estmu[i])
-                    fig_iter+=1
-                    plt.savefig('./plot/'+'figure_'+str(fig_iter)+'.png')
-                    plt.show()
+                    self._plot_graph(estcov,estmu,k,y,None)
                     
                 iteration+=1
             
@@ -268,7 +254,7 @@ class MDL_GMM(TransformerMixin):
                     if min_eig < 0:
                         estcov[:,:,i] -= 10*min_eig * np.eye(*estcov[:,:,i].shape)
                     
-                    semi_indic[i,:]=multivariate_normal.pdf(y, estmu[i], estcov[:,:,i], allow_singular=False)
+                    semi_indic[i,:]=self._posterior_probability(y,estmu,estcov,i)
                     indic[i,:]=semi_indic[i,:]*estpp[:,i]
                 
                 if k != 1:
@@ -288,26 +274,9 @@ class MDL_GMM(TransformerMixin):
             plt.title('Description Length')        
             plt.plot(range(len(dl)),dl)
             plt.show()
-            
-            
-            plt.title('Best number of components')
-            ax = plt.subplot(111)
-            plt.scatter(y[:,0],y[:,1],alpha=0.2,s=10)
-            def draw_elipse(ax,estcov,estmu):
-                v, w = np.linalg.eigh(estcov)
-                u = w[0] / np.linalg.norm(w[0])
-                angle = np.arctan2(u[1], u[0])
-                angle = 180 * angle / np.pi  # convert to degrees
-                v = 2. * np.sqrt(2.) * np.sqrt(v)
-                
-                ell = mpl.patches.Ellipse(estmu, v[0], v[1],
-                                          180 + angle,facecolor='none')
-                ell.set_clip_box(ax.bbox)
-                ell.set_alpha(1)
-                ax.add_artist(ell)
-            for i in range(self.bestcov.shape[-1]):
-                draw_elipse(ax,self.bestcov[:,:,i],self.bestmu[i])
-            plt.show()
+                   
+            self._plot_graph(self.bestcov,self.bestmu,self.bestcov.shape[-1],y,'Best number of components')
+                 
         return self
     
     def sample(self,sample):
@@ -324,7 +293,7 @@ class MDL_GMM(TransformerMixin):
         y=np.array(X)
         semi_indic = np.empty((self.bestmu.shape[0],y.shape[0]))
         for i in range(self.bestmu.shape[0]):
-                    semi_indic[i,:]=multivariate_normal.pdf(y, self.bestmu[i], self.bestcov[:,:,i], allow_singular=False)
+                    semi_indic[i,:]=self._posterior_probability(y,self.bestmu,self.bestcov,i)
         return semi_indic.T
     
     def fit_transform(self, X, y=None):
