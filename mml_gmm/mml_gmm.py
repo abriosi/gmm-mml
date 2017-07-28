@@ -43,6 +43,7 @@ class MmlGmm(TransformerMixin):
         ell.set_clip_box(ax.bbox)
         ell.set_alpha(1)
         ax.add_artist(ell)
+        return ax
 
     def _plot_graph(self,estcov,estmu,k,y,message):
         import matplotlib.pyplot as plt
@@ -50,7 +51,7 @@ class MmlGmm(TransformerMixin):
         plt.title(message)
         plt.scatter(y[:,0],y[:,1],alpha=0.2,s=10)
         for i in range(k):
-            self._draw_elipse(ax,estcov[:,:,i],estmu[i])
+            ax=self._draw_elipse(ax,estcov[:,:,i],estmu[i])
         plt.show()
 
     def _posterior_probability(self,y,estmu,estcov,i):
