@@ -12,7 +12,7 @@ from scipy.stats import multivariate_normal
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 
-class MdlGmm(TransformerMixin):
+class MmlGmm(TransformerMixin):
     
     def __init__(self,kmin=1,
                  kmax=25,

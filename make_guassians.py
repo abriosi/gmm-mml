@@ -9,7 +9,7 @@ Created on Fri Jul 28 00:00:09 2017
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import multivariate_normal
-from mdl_gmm import MdlGmm
+from mml_gmm import MmlGmm
 
 def sample_GMM(means,covs,probs,samples):
     output=[]    
@@ -40,7 +40,7 @@ X=sample_GMM(means,covs,probs,1000)
 plt.title('Guassian Generated Data')
 plt.scatter(X[:,0],X[:,1],alpha=0.2,s=10)
 plt.show()
-unsupervised=MdlGmm(plots=True)
+unsupervised=MmlGmm(plots=True)
 unsupervised.fit(X)
 samples=unsupervised.sample(1000)
 
