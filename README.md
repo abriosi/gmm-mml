@@ -1,4 +1,4 @@
-# Unsupervised Learning of Guassian Mixture Models
+# Unsupervised Learning of Finite Guassian Mixture Models
 
 Original [paper](http://www.lx.it.pt/~mtf/IEEE_TPAMI_2002.pdf)
 
@@ -12,7 +12,7 @@ An example jupyter notebook is provided [link](./notebooks/tutorial.ipynb)
 
 <p float="left">
   <img src="./figures/best_number_components.png" width="400" /> 
-  <img src="./figures/animated.gif" width="470" />
+  <img src="./figures/animated.gif" width="470" vspace="10" />
 </p>
 
 This implementation is a port from the orginal authors [matlab](http://www.lx.it.pt/~mtf/mixturecode2.zip) code with small modifications and it is built as a sklearn wrapper. The dependencies are:
