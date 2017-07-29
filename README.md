@@ -12,14 +12,14 @@ An example jupyter notebook is provided [link](./notebooks/tutorial.ipynb)
 
 The following points were generated using three bivariate guassian distributions. The clustering algorithm correctly converges to those distributions:
 
-<p float="center">
+<p align="center">
   <img src="./figures/generated_data.png" width="400" /> 
   <img src="./figures/best_number_components.png" width="400"  />
 </p>
 
 It is also possible to visualize this process:
 
-<p float="center"> 
+<p align="center"> 
   <img src="./figures/animated.gif" width="500"  />
 </p>
 
