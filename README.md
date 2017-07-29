@@ -2,7 +2,9 @@
 
 This clustering algorithm uses a minimum message length like criterion to learn the optimal number of components in a finite guassian mixture model. 
 
-![alt-text-1](./figures/generated_data.png "title-1") ![alt-text-2](./figures/best_number_components.png "title-2") ![alt-text-3](./figures/animated.gif "title-3")
+<img align="left" src="./figures/generated_data.png" alt="Made with Angular" title="Angular" hspace="20"/>
+<img align="left" src="./figures/best_number_components.png" alt="Made with Bootstrap" title="Bootstrap" hspace="20"/>
+<img align="left" src="./figures/animated.gif" alt="Developed using Browsersync" title="Browsersync" hspace="20"/>
 
 Write README.md (put images one of them a gif) file
 
