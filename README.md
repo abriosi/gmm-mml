@@ -4,7 +4,7 @@ This clustering algorithm uses a minimum message length like criterion to learn 
 
 <p float="left">
   <img src="./figures/best_number_components.png" width="400" /> 
-  <img src="./figures/animated.gif" width="500" />
+  <img src="./figures/animated.gif" width="470" />
 </p>
 
 Write README.md (put images one of them a gif) file
