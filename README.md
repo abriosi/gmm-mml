@@ -10,9 +10,17 @@ pip install mml_gmm
 ```
 An example jupyter notebook is provided [link](./notebooks/tutorial.ipynb)
 
-<p float="left">
-  <img src="./figures/best_number_components.png" width="400" /> 
-  <img src="./figures/animated.gif" width="470" vspace="100" />
+The following points were generated using three bivariate guassian distributions. The clustering algorithm correctly converges to those distributions:
+
+<p float="middle">
+  <img src="./figures/generated_data.png" width="400" /> 
+  <img src="./figures/best_number_components.gif" width="400"  />
+</p>
+
+It is also possible to visualize this process:
+
+<p float="middle"> 
+  <img src="./figures/animated.gif" width="500"  />
 </p>
 
 This implementation is a port from the orginal authors [matlab](http://www.lx.it.pt/~mtf/mixturecode2.zip) code with small modifications and it is built as a sklearn wrapper. The dependencies are:
