@@ -1,1 +1,3 @@
-Jupyter Notebook - [tutorial](https://github.com/abriosi/mml_gmm/blob/development/tutorial.ipynb)
+TODO:
+
+add the jupyter tutorials link here
