@@ -36,7 +36,7 @@ cov4=[[2,0],[0,0.2]]
 cov5=[[20,0],[0,20]]
 covs=[cov1,cov2,cov3,cov4,cov5]
 probs=[0.15,0.15,0.15,0.15,0.4]
-X=sample_GMM(means,covs,probs,1000)
+X=sample_GMM(means,covs,probs,2000)
 plt.title('Guassian Generated Data')
 plt.scatter(X[:,0],X[:,1],alpha=0.2,s=10)
 plt.show()
