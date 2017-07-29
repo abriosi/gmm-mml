@@ -7,4 +7,9 @@ setup(name='mml_gmm',
       author='abriosi',
       license='MIT',
       packages=['mml_gmm'],
+      install_requires=[
+          'numpy',
+          'scipy',
+          'sklearn',
+      ],
       zip_safe=False)
