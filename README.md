@@ -1,5 +1,12 @@
 # Unsupervised Learning of Guassian Mixture Models
 
+To install this package:
+```
+pip install mml_gmm
+```
+
+Original [paper](http://www.lx.it.pt/~mtf/IEEE_TPAMI_2002.pdf)
+
 This clustering algorithm uses a minimum message length like criterion to learn the optimal number of components in a finite guassian mixture model. 
 
 <p float="left">
@@ -7,10 +14,12 @@ This clustering algorithm uses a minimum message length like criterion to learn 
   <img src="./figures/animated.gif" width="470" />
 </p>
 
-Write README.md (put images one of them a gif) file
+This implementation is a port from the orginal authors [matlab](http://www.lx.it.pt/~mtf/mixturecode2.zip) code with small modifications and it is built as a sklearn wrapper. The dependencies are:
+```
+numpy
+scipy
+sklearn
+```
+To run the example scripts it also advisable to install `matplotlib`
 
-Write short tutorial
-
-Talk about compatibilities
-
-address de 1-d case (estcov[:,:,i] to something like estcov[-i:]) 
+This code is a work in progress and it nees a lot of refactoring. It is supposed to be compatible with python2 and python3
