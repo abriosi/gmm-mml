@@ -273,7 +273,7 @@ class MmlGmm(TransformerMixin):
 
         if self.check_plot==True:
             import matplotlib.pyplot as plt
-            plt.title('Description Length')
+            plt.title('Evaluation of the cost function')
             plt.plot(range(len(dl)),dl)
             plt.show()
 
