@@ -1,4 +1,6 @@
-# TODO:
+# Unsupervised Learning of Guassian Mixture Models
+
+This clustering algorithm uses a minimum message length like criterion to learn the optimal number of components in a finite guassian mixture model. 
 
 Write README.md (put images one of them a gif) file
 
