@@ -88,7 +88,7 @@ class MmlGmm(TransformerMixin):
         randindex = np.random.choice(randindex,k)
         estmu = y[randindex]
 
-        estpp = (1/k)*np.ones((1,k))
+        estpp = (1/float(k))*np.ones((1,k))
         globcov = np.cov(y,rowvar=False)
 
         estcov=np.empty(globcov.shape+(self.kmax,))
