@@ -40,6 +40,7 @@ X=sample_GMM(means,covs,probs,1000)
 plt.title('Guassian Generated Data')
 plt.scatter(X[:,0],X[:,1],alpha=0.2,s=10)
 plt.show()
+
 unsupervised=MmlGmm(plots=True)
 unsupervised.fit(X)
 samples=unsupervised.sample(1000)
