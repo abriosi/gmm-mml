@@ -1,8 +1,8 @@
-# Unsupervised Learning of Finite Guassian Mixture Models
+# Unsupervised Learning of Finite Gaussian Mixture Models
 
 Original [paper](http://www.lx.it.pt/~mtf/IEEE_TPAMI_2002.pdf)
 
-Unsupervised learning of guassian mixture models uses a minimum message length like criterion to learn the optimal number of components in a finite guassian mixture model. 
+Unsupervised learning of gaussian mixture models uses a minimum message length like criterion to learn the optimal number of components in a finite gaussian mixture model. 
 
 To install this python package:
 ```
@@ -10,7 +10,7 @@ pip install mml_gmm
 ```
 An example jupyter notebook is provided [link](./notebooks/tutorial.ipynb)
 
-The following points were generated using three bivariate guassian distributions. The clustering algorithm correctly converges to those distributions:
+The following points were generated using three bivariate gaussian distributions. The clustering algorithm correctly converges to those distributions:
 
 <p align="center">
   <img src="./figures/generated_data.png" width="400" /> 
