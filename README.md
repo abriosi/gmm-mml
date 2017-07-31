@@ -21,7 +21,7 @@ sklearn
 ```
 To run the example scripts it also advisable to install `matplotlib`
 
-It is "probably" to be compatible with python2 and python3
+It should be compatible with python2 and python3
 
 ## Usage
 
