@@ -10,11 +10,23 @@ The deterministic methodology starts by obtaining a set of candidate models whic
 
 The stochastic and resampling methods make use Markov chain Monte Carlo to perform mixture inference in two different ways
 
+## Installation
+
 To install this python package:
 ```
 pip install mml_gmm
 ```
+This implementation is a port from the orginal authors [matlab](http://www.lx.it.pt/~mtf/mixturecode2.zip) code with small modifications and it is built as a sklearn wrapper. The dependencies are:
+```
+numpy
+scipy
+sklearn
+```
+To run the example scripts it also advisable to install `matplotlib`
+
 An example jupyter notebook is provided [link](./notebooks/tutorial.ipynb)
+
+## Usage
 
 The following points were generated using three bivariate gaussian distributions. The clustering algorithm correctly converges to those distributions:
 
@@ -29,12 +41,6 @@ It is also possible to visualize this process:
   <img src="./figures/animated.gif" width="500"  />
 </p>
 
-This implementation is a port from the orginal authors [matlab](http://www.lx.it.pt/~mtf/mixturecode2.zip) code with small modifications and it is built as a sklearn wrapper. The dependencies are:
-```
-numpy
-scipy
-sklearn
-```
-To run the example scripts it also advisable to install `matplotlib`
+## TODO
 
 This code is a work in progress and it needs a lot of refactoring. It is supposed to be compatible with python2 and python3
