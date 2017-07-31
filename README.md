@@ -2,8 +2,7 @@
 
 Original [paper](http://www.lx.it.pt/~mtf/IEEE_TPAMI_2002.pdf)
 
-Unsupervised learning of gaussian mixture models uses a minimum message length like criterion to learn the optimal number of components in a finite gaussian mixture model. 
-
+Unsupervised learning of gaussian mixture models uses a minimum message length like criterion to learn the optimal number of components in a finite gaussian mixture model.
 
 ## Installation
 
