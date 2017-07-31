@@ -2,7 +2,13 @@
 
 Original [paper](http://www.lx.it.pt/~mtf/IEEE_TPAMI_2002.pdf)
 
-Unsupervised learning of guassian mixture models uses a minimum message length like criterion to learn the optimal number of components in a finite guassian mixture model. 
+Unsupervised learning of finite guassian mixture models uses a minimum message length like criterion to learn the optimal number of components in a finite guassian mixture model. 
+
+The usual way of estimating the optimal number of components in a finite mixture model falls into two classes: deterministic and stochastic. 
+
+The deterministic methodology starts by obtaining a set of candidate models which is assumed to contain the true/optimal *k* (number of components) according to some model criterion. There are multiples criterion's to perform model selection when choosing the correct number of components while performing unsupervised clustering, e.g., Bayesian information criterion (BIC), Akaike information criterion (AIC), Minimum description length (MDL). Although these methods perform well, a major draw-back remains: a whole set of candidates models have to be obtained.
+
+The stochastic and resampling methods make use Markov chain Monte Carlo to perform mixture inference in two different ways
 
 To install this python package:
 ```
