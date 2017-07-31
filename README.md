@@ -52,7 +52,7 @@ Available sklearn methods:
 - `.fit_transform()` - fit and return inputs posterior probability
 - `.transform()` - return inputs posterior probability
 - `.predict()` - return inputs cluster
-- `.predict_proba()` - same has `.transform()`
+- `.predict_proba()` - same as `.transform()`
 - `.sample()` - sample new data from the fitted mixture model
 
 
