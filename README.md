@@ -47,14 +47,14 @@ It is also possible to visualize this process `MmlGmm(plots=True,live_2d_plot=Fa
 </p>
 
 Available sklearn methods:
-```python
-unsupervised.fit()
-unsupervised.fit_transform()
-unsupervised.transform()
-unsupervised.predict()
-unsupervised.predict_proba()
-unsupervised.sample()
-```
+
+- `.fit()` - fit the finite mixture model
+- `.fit_transform()` - fit and return inputs posterior probability
+- `.transform()` - return inputs posterior probability
+- `.predict()` - return inputs cluster
+- `.predict_proba()` - same has `.transform()`
+- `.sample()` - sample new data from the fitted mixture model
+
 
 ## Examples
 
