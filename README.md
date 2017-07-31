@@ -8,11 +8,13 @@ Unsupervised learning of gaussian mixture models uses a minimum message length l
 ## Installation
 
 To install this python package:
-```
+
+```bash
 pip install mml_gmm
 ```
 This implementation is a port from the orginal authors [matlab](http://www.lx.it.pt/~mtf/mixturecode2.zip) code with small modifications and it is built as a sklearn wrapper. The dependencies are:
-```
+
+```python
 numpy
 scipy
 sklearn
@@ -31,7 +33,7 @@ The following points were generated using three bivariate gaussian distributions
 </p>
 The clustering algorithm correctly converges to those distributions:
 
-```
+```python
 from mml_gmm import MmlGmm
 
 unsupervised=MmlGmm(plots=True)
