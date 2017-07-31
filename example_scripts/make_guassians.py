@@ -9,10 +9,10 @@ Created on Fri Jul 28 00:00:09 2017
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import multivariate_normal
-from mml_gmm import MmlGmm
+from gmm_mml import GmmMml
 
 def sample_GMM(means,covs,probs,samples):
-    output=[]    
+    output=[]
     means=np.array(means)
     covs=np.array(covs)
     select_sample=np.random.multinomial(samples, probs)
@@ -41,12 +41,10 @@ plt.title('Guassian Generated Data')
 plt.scatter(X[:,0],X[:,1],alpha=0.2,s=10)
 plt.show()
 
-unsupervised=MmlGmm(plots=True)
+unsupervised=GmmMml(plots=True)
 unsupervised.fit(X)
 samples=unsupervised.sample(1000)
 
 plt.title('Sampled from GMM')
 plt.scatter(samples[:,0],samples[:,1],alpha=0.2,s=10)
 plt.show()
-
-
