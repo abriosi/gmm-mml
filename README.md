@@ -30,6 +30,7 @@ The following points were generated using three bivariate gaussian distributions
   <img src="./figures/best_number_components.png" width="400"  />
 </p>
 The clustering algorithm correctly converges to those distributions:
+
 ```
 from mml_gmm import MmlGmm
 
