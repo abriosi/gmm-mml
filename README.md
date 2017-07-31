@@ -21,6 +21,8 @@ sklearn
 ```
 To run the example scripts it also advisable to install `matplotlib`
 
+It is "probably" to be compatible with python2 and python3
+
 ## Usage
 
 The following points were generated using three bivariate gaussian distributions. 
@@ -44,6 +46,16 @@ It is also possible to visualize this process `MmlGmm(plots=True,live_2d_plot=Fa
   <img src="./figures/animated.gif" width="500"  />
 </p>
 
+Available sklearn methods:
+```python
+unsupervised.fit()
+unsupervised.fit_transform()
+unsupervised.transform()
+unsupervised.predict()
+unsupervised.predict_proba()
+unsupervised.sample()
+```
+
 ## Examples
 
 On folders ./example_scipts and ./tutorials there are examples on how to use the code
@@ -52,4 +64,6 @@ An example jupyter notebook is provided [link](./notebooks/tutorial.ipynb)
 
 ## TODO
 
-This code is a work in progress and it needs a lot of refactoring. It is supposed to be compatible with python2 and python3
+* Refactoring
+* Docs
+* Make it work with 1-d data (bug)
