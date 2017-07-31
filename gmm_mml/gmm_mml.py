@@ -10,7 +10,7 @@ from sklearn.base import TransformerMixin
 import numpy as np
 from scipy.stats import multivariate_normal
 
-class MmlGmm(TransformerMixin):
+class GmmMml(TransformerMixin):
 
     def __init__(self,kmin=1,
                  kmax=25,
