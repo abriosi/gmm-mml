@@ -2,7 +2,7 @@
 
 Original [paper](http://www.lx.it.pt/~mtf/IEEE_TPAMI_2002.pdf)
 
-Unsupervised learning of gaussian mixture models uses a minimum message length like criterion to learn the optimal number of components in a finite gaussian mixture model.
+Unsupervised learning of Gaussian mixture models uses a minimum message length like criterion to learn the optimal number of components in a finite Gaussian mixture model.
 
 ## Installation
 
@@ -24,7 +24,7 @@ It should be compatible with python2 and python3
 
 ## Usage
 
-The following points were generated using three bivariate gaussian distributions. 
+The following points were generated using three bivariate Gaussian distributions. 
 
 <p align="center">
   <img src="./figures/generated_data.png" width="400" /> 
@@ -66,3 +66,4 @@ An example jupyter notebook is provided [link](./notebooks/tutorial.ipynb)
 * Refactoring
 * Docs
 * Make it work with 1-d data (bug)
+* Support other covariance types (right now only 'full' is supported, i.e., each component has its own general covariance matrix)
