@@ -21,8 +21,6 @@ sklearn
 ```
 To run the example scripts it also advisable to install `matplotlib`
 
-An example jupyter notebook is provided [link](./notebooks/tutorial.ipynb)
-
 ## Usage
 
 The following points were generated using three bivariate gaussian distributions. 
@@ -49,6 +47,8 @@ It is also possible to visualize this process `MmlGmm(plots=True,live_2d_plot=Fa
 ## Examples
 
 On folders ./example_scipts and ./tutorials there are examples on how to use the code
+
+An example jupyter notebook is provided [link](./notebooks/tutorial.ipynb)
 
 ## TODO
 
