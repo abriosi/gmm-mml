@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='gmm-mml',
-      version='0.11',
+      version='0.12',
       description='Unsupervised cluster selection for finite guassian mixture models',
       url='https://github.com/abriosi/gmm-mml/',
       author='abriosi',
