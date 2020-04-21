@@ -39,20 +39,25 @@ class GmmMml(TransformerMixin):
         v = 2. * np.sqrt(2.) * np.sqrt(v)
 
         ell = mpl.patches.Ellipse(estmu, v[0], v[1],
-                                  180 + angle,facecolor='none')
+                                  180 + angle,
+                                  facecolor='none',
+                                  edgecolor='black')
         ell.set_clip_box(ax.bbox)
         ell.set_alpha(1)
         ax.add_artist(ell)
         return ax
 
     def _plot_graph(self,estcov,estmu,k,y,message):
-        import matplotlib.pyplot as plt
-        ax = plt.subplot(111)
-        plt.title(message)
-        plt.scatter(y[:,0],y[:,1],alpha=0.2,s=10)
-        for i in range(k):
-            ax=self._draw_elipse(ax,estcov[:,:,i],estmu[i])
-        plt.show()
+        if y.shape[1] == 2:
+            import matplotlib.pyplot as plt
+            ax = plt.subplot(111)
+            plt.title(message)
+            plt.scatter(y[:,0],y[:,1],alpha=0.2,s=10)
+            for i in range(k):
+                ax=self._draw_elipse(ax,estcov[:,:,i],estmu[i])
+            plt.show()
+        else:
+            print("only supports 2d data for plots")
 
     def _posterior_probability(self,y,estmu,estcov,i):
         try:
@@ -89,7 +94,11 @@ class GmmMml(TransformerMixin):
         estmu = y[randindex]
 
         estpp = (1/float(k))*np.ones((1,k))
-        globcov = np.cov(y,rowvar=False)
+
+        if dimens > 1:
+            globcov = np.cov(y,rowvar=False)
+        else:
+            globcov = np.array([np.array([np.cov(y,rowvar=False)])])
 
         estcov=np.empty(globcov.shape+(self.kmax,))
         for i in range(k):
